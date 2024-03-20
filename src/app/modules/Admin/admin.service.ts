@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Admin, Prisma, UserRole, UserStatus } from "@prisma/client";
 import { paginationHelper } from "../../../helper/paginationHelper";
 import prisma from "../../../Share/prisma";
 
@@ -52,9 +52,106 @@ const getAllFromDB = async (params: any, options: any) => {
     }
   });
 
-  return result;
+  const total = await prisma.admin.count({
+    where: whereCondition
+  })
+
+  return {
+    meta: {
+      page,
+      limit,
+      total
+    },
+    data:result
+  };
 };
 
+const getByIdFromDB = async(id: string) =>{
+  const result = await prisma.admin.findUnique({
+    where:{
+      id
+    }
+  })
+
+  return result;
+}
+
+const updateIntoDB = async(id: string, data: Partial<Admin>): Promise<Admin> =>{
+  await prisma.admin.findUniqueOrThrow({ where:{id, isDeleted: false}})
+  
+  const result = await prisma.admin.update({
+    where: {
+      id
+    },
+    data
+  })
+
+  return result;
+}
+
+const deleteFromDB = async(id: string) =>{
+
+  await prisma.admin.findUniqueOrThrow({
+    where:{
+      id
+    }
+  })
+
+const result = await prisma.$transaction(async(transactionClint)=>{
+  const adminDeletedData = await transactionClint.admin.delete({
+    where:{
+      id
+    }
+  })
+
+  const userDeletedData = await transactionClint.user.delete({
+    where: {
+      email: adminDeletedData.email
+    }
+  })
+
+  return adminDeletedData;
+})
+
+return result;
+}  
+
+
+const softDeletFromDB = async(id: string) =>{
+  await prisma.admin.findUniqueOrThrow({
+    where: {id}
+  })
+
+  const result = await prisma.$transaction(async(transactionClint)=>{
+    const adminDeletedData = await transactionClint.admin.update({
+      where:{
+        id
+      },
+      data:{
+        isDeleted: true
+      }
+    })
+  
+    const userDeletedData = await transactionClint.user.update({
+      where: {
+        email: adminDeletedData.email
+      },
+      data: {
+        status: UserStatus.DELETED
+    }
+    })
+  
+    return adminDeletedData;
+  })
+  
+  return result;
+  }
+  
+
 export const AdminService = {
-  getAllFromDB
+  getAllFromDB,
+  getByIdFromDB,
+  updateIntoDB,
+  deleteFromDB,
+  softDeletFromDB
 }
