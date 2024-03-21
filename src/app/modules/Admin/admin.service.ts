@@ -1,8 +1,10 @@
 import { Admin, Prisma, UserRole, UserStatus } from "@prisma/client";
 import { paginationHelper } from "../../../helper/paginationHelper";
 import prisma from "../../../Share/prisma";
+import { IPaginationOptions } from "../../interface/pagination";
+import { IAdminFilterRequest } from "./admin.interface";
 
-const getAllFromDB = async (params: any, options: any) => {
+const getAllFromDB = async (params: IAdminFilterRequest, options: IPaginationOptions) => {
 
   const {limit, page, sortBy, sortOrder} = paginationHelper.calculatePagination(options);
 
@@ -39,6 +41,12 @@ const getAllFromDB = async (params: any, options: any) => {
     })
   }
 
+  andCondition.push({
+    isDeleted: false
+})
+
+console.log("find many",andCondition);
+
   const whereCondition: Prisma.AdminWhereInput = {AND: andCondition}
 
   const result = await prisma.admin.findMany({
@@ -69,7 +77,8 @@ const getAllFromDB = async (params: any, options: any) => {
 const getByIdFromDB = async(id: string) =>{
   const result = await prisma.admin.findUnique({
     where:{
-      id
+      id,
+      isDeleted: false
     }
   })
 
@@ -81,7 +90,8 @@ const updateIntoDB = async(id: string, data: Partial<Admin>): Promise<Admin> =>{
   
   const result = await prisma.admin.update({
     where: {
-      id
+      id,
+      isDeleted: false
     },
     data
   })
