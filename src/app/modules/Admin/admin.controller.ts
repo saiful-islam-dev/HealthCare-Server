@@ -4,17 +4,7 @@ import { adminFilterableFields } from './admin.constant';
 import pick from '../../../Share/pick';
 import sendResponse from '../../../Share/sendResponse';
 import httpStatus from "http-status";
-
-
-const catchAsync = (fn: RequestHandler) =>{
-    return async(req: Request, res: Response, next: NextFunction) =>{
-        try {
-           await fn(req, res, next)
-        } catch (err) {
-            next(err)
-        }
-    }
-}
+import catchAsync from '../../../Share/catchAsync';
 
 
 const getAllFromDB = catchAsync(async (req: Request, res: Response, next: NextFunction) => {

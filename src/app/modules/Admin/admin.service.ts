@@ -35,7 +35,7 @@ const getAllFromDB = async (params: IAdminFilterRequest, options: IPaginationOpt
     andCondition.push({
       AND: Object.keys(filterdata).map(keys =>({
         [keys] : {
-          equals: filterdata[keys]
+          equals: (filterdata as any)[keys]
         }
       }))
     })
