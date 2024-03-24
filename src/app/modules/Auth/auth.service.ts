@@ -2,6 +2,8 @@ import prisma from "../../../Share/prisma";
 import * as bcrypt from "bcrypt";
 import { jwtHelpers } from "../../../helper/jwtHelpers";
 import { UserStatus } from "@prisma/client";
+import config from "../../../config";
+import { Secret } from "jsonwebtoken";
 
 const loginUser = async (payload: {
     email: string,
@@ -22,14 +24,14 @@ const loginUser = async (payload: {
 
     const accessToken = jwtHelpers.generateToken(
         {email: userData.email, role: userData.role}, 
-        "abcdefg",
-        "5m"
+        config.jwt.jwt_secret as Secret,
+        config.jwt.expires_in as string
     )
 
         const refreshToken = jwtHelpers.generateToken(
             {email: userData.email, role: userData.role}, 
-            "abcdefghgijklmnop",
-            "30d"
+            config.jwt.refresh_token_secret as Secret,
+            config.jwt.refresh_token_expires_in as string
         )
         
         console.log({refreshToken});
@@ -43,36 +45,41 @@ const loginUser = async (payload: {
 
 
 const refreshToken = async (token: string) => {
-    let decodedData;
-    try {
-        decodedData = jwtHelpers.verifyToken(token, 'abcdefghgijklmnop');
-    }
-    catch (err) {
-        throw new Error("You are not authorized!")
-    }
-console.log(decodedData);
-    const userData = await prisma.user.findUniqueOrThrow({
-        where: {
-            email: decodedData.email,
-            status: UserStatus.ACTIVE
-        }
-    });
-
-    console.log(userData);
-
-    const accessToken = jwtHelpers.generateToken({
-        email: userData.email,
-        role: userData.role
-    },
-        "abcdefg",
-        "5m"
+  let decodedData: any;
+  try {
+    decodedData = jwtHelpers.verifyToken(
+      token,
+      config.jwt.refresh_token_secret as string
     );
+  } catch (err) {
+    throw new Error("You are not authorized!");
+  }
+  console.log(decodedData);
+  const userData = await prisma.user.findUniqueOrThrow({
+    where: {
+      email: decodedData.email,
+      status: UserStatus.ACTIVE,
+    },
+  });
 
-    return {
-        accessToken,
-        needPasswordChange: userData.needPasswordChange
-    };
-}
+  console.log(userData);
+
+  const accessToken = jwtHelpers.generateToken(
+    {
+      email: userData.email,
+      role: userData.role,
+    },
+    config.jwt.jwt_secret as Secret,
+    config.jwt.expires_in as string
+  );
+
+  return {
+    accessToken,
+    needPasswordChange: userData.needPasswordChange,
+  };
+};
+
+
 
 export const AuthServices = {
     loginUser,

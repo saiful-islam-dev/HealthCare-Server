@@ -7,7 +7,7 @@ const createAdmin = async (data: any) => {
 
     const hashedPassword = await bcrypt.hash(data.password, 12);
 
-    console.log(hashedPassword);
+    console.log("user service",hashedPassword);
 
     const userData = {
         email: data.admin.email,
