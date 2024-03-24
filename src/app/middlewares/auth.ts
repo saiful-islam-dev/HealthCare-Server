@@ -1,29 +1,31 @@
 import { NextFunction, Request, Response } from "express";
 import { jwtHelpers } from "../../helper/jwtHelpers";
-import config from "../../config";
 import { Secret } from "jsonwebtoken";
+import config from "../../config";
+import ApiError from "../errors/ApiError";
+import httpStatus from "http-status";
 
 const auth = (...roles: string[]) => {
-    return async (req: Request, res: Response, next: NextFunction) => {
+    return async (req: Request & {user?: any}, res: Response, next: NextFunction) => {
       try {
-        const token = req.headers.authorization;
+        const token = req.headers.authorization
+
         if (!token) {
-          throw new Error("Yow are not authorization");
+            throw new ApiError(httpStatus.UNAUTHORIZED, "You are not authorized!")
         }
-        const varifiedUser = jwtHelpers.verifyToken(token, config.jwt.jwt_secret as Secret)
-  
-        req.user = varifiedUser;
-  
-        console.log(varifiedUser);
-  
-        if(roles.length && !roles.includes(varifiedUser.role)) {
-          throw new Error("Forbetern");
+
+        const verifiedUser = jwtHelpers.verifyToken(token, config.jwt.jwt_secret as Secret)
+
+        req.user = verifiedUser;
+
+        if (roles.length && !roles.includes(verifiedUser.role)) {
+            throw new ApiError(httpStatus.FORBIDDEN, "Forbidden!")
         }
-  
-        next();
-      } catch (error) {
-        next(error);
-      }
+        next()
+    }
+    catch (err) {
+        next(err)
+    }
     };
   }    
 
