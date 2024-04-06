@@ -117,6 +117,7 @@ const changePassword = async(user: any, payload: any)=>{
 }
 
 const forgotPassword = async(payload: {email: string}) =>{
+  console.log("forgot password");
   const userData = await prisma.user.findUniqueOrThrow({
     where:{
       email: payload.email,
@@ -133,7 +134,7 @@ const forgotPassword = async(payload: {email: string}) =>{
 
   const resetPassLink = config.reset_pass_link + `?userId=${userData.id}&token=${resetPassToken}`;
 
-  emailSender(
+  await emailSender(
     userData.email,
     ` <div>
     <p>Dear User,</p>
@@ -144,8 +145,8 @@ const forgotPassword = async(payload: {email: string}) =>{
             </button>
         </a>
     </p>
-
 </div>`)
+console.log("forgot password");
 }
 
 const resetPassword = async (token: string, payload: { id: string, password: string })=>{
