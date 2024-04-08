@@ -64,7 +64,6 @@ const deleteFromDB = catchAsync(async(req: Request, res: Response, next: NextFun
 
 const softDeleteFromDB = catchAsync(async(req: Request, res: Response, next: NextFunction) =>{
     const {id} = req.params;
-    console.log(id);
         const result = await AdminService.softDeletFromDB(id);
 
         sendResponse(res, {

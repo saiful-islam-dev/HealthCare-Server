@@ -7,7 +7,6 @@ import { AuthServices } from "./auth.service";
 
 
 const loginUser = catchAsync(async (req: Request, res: Response) => {
-    console.log("C 10",req.body);
     const result = await AuthServices.loginUser(req.body);
 
     const {refreshToken } = result; 
@@ -16,8 +15,6 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
         secure: false,
         httpOnly: true
     })
-
-    console.log(result);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,

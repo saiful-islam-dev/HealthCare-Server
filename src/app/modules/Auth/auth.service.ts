@@ -21,11 +21,10 @@ const loginUser = async (payload: { email: string; password: string }) => {
   );
 
   if (!isCorrectPassword) {
-    console.log(isCorrectPassword);
     throw new ApiError(httpStatus.UNAUTHORIZED, "Password incorrect!");
   }
 
-  console.log("isCorrectPassword");
+
   const accessToken = jwtHelpers.generateToken(
     { email: userData.email, role: userData.role },
     config.jwt.jwt_secret as Secret,
@@ -37,9 +36,6 @@ const loginUser = async (payload: { email: string; password: string }) => {
     config.jwt.refresh_token_secret as Secret,
     config.jwt.refresh_token_expires_in as string
   );
-
-  console.log({ accessToken });
-  console.log({ refreshToken });
 
   return {
     accessToken,
@@ -58,15 +54,13 @@ const refreshToken = async (token: string) => {
   } catch (err) {
     throw new Error("You are not authorized!");
   }
-  console.log(decodedData);
+
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
       email: decodedData.email,
       status: UserStatus.ACTIVE,
     },
   });
-
-  console.log(userData);
 
   const accessToken = jwtHelpers.generateToken(
     {
@@ -91,7 +85,7 @@ const changePassword = async (user: any, payload: any) => {
     },
   });
 
-  console.log(userData);
+
 
   const isCorrectPassword = await bcrypt.compare(
     payload.oldPassword,
@@ -120,7 +114,7 @@ const changePassword = async (user: any, payload: any) => {
 };
 
 const forgotPassword = async (payload: { email: string }) => {
-  console.log("forgot password");
+
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
       email: payload.email,
@@ -150,14 +144,12 @@ const forgotPassword = async (payload: { email: string }) => {
     </p>
 </div>`
   );
-  console.log("forgot password");
 };
 
 const resetPassword = async (
   token: string,
   payload: { id: string; password: string }
 ) => {
-  console.log({ token }, payload);
 
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
@@ -165,8 +157,6 @@ const resetPassword = async (
       status: UserStatus.ACTIVE,
     },
   });
-
-  console.log({ userData });
 
   const isValidToken = jwtHelpers.verifyToken(
     token,
@@ -179,7 +169,6 @@ const resetPassword = async (
 
   // hash password
   const password = await bcrypt.hash(payload.password, 12);
-  console.log(password);
 
   // update into database
   const result = await prisma.user.update({
@@ -190,7 +179,6 @@ const resetPassword = async (
       password,
     },
   });
-  console.log({ result });
 };
 
 export const AuthServices = {

@@ -5,8 +5,6 @@ const emailSender = async (
     email: string,
     html: string
     ) => {
-        
-        console.log("Message sent: %s 9");
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
@@ -19,7 +17,7 @@ const emailSender = async (
             rejectUnauthorized: false
         }
     });
-    console.log("Message sent: %s 20",);
+
     const info = await transporter.sendMail({
         from: '"PH Health Care" <saifulisalmx264@gmail.com>', // sender address
         to: email, // list of receivers
@@ -27,8 +25,6 @@ const emailSender = async (
         //text: "Hello world?", // plain text body
         html, // html body
     });
-
-    console.log("Message sent: %s", info.messageId);
 }
 
 export default emailSender;
