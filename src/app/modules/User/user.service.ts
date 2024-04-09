@@ -234,11 +234,16 @@ const getMyProfile = async (user: IAuthUser) => {
 };
 
 const updateMyProfie = async (user: IAuthUser, req: Request) => {
+  console.log({ user }, "req.body", req.body);
+
   const userInfo = await prisma.user.findUniqueOrThrow({
     where: {
       email: user?.email,
+      status: UserStatus.ACTIVE,
     },
   });
+
+  console.log({ userInfo });
 
   const file = req.file as IFile;
   if (file) {
@@ -277,6 +282,8 @@ const updateMyProfie = async (user: IAuthUser, req: Request) => {
       data: req.body,
     });
   }
+
+  return { ...profileInfo };
 };
 
 export const userService = {
