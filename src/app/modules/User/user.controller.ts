@@ -9,7 +9,9 @@ import { IAuthUser } from "../../interface/common";
 
 const createAdmin = catchAsync(async (req: Request, res: Response) => {
   const result = await userService.createAdmin(req);
-  res.status(200).json({
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
     success: true,
     message: "Admin Created successfuly!",
     data: result,
