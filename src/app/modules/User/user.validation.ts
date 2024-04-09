@@ -79,9 +79,12 @@ const updateStatus = z.object({
   }),
 });
 
+const updateProfile = z.object({});
+
 export const userValidation = {
   createAdmin,
   createDoctor,
   createPatient,
   updateStatus,
+  updateProfile,
 };
