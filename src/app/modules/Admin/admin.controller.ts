@@ -1,5 +1,5 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express';
-import { AdminService } from './admin.service';
+import { AdminService } from './admin.services';
 import { adminFilterableFields } from './admin.constant';
 import pick from '../../../Share/pick';
 import sendResponse from '../../../Share/sendResponse';

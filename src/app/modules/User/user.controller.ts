@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { userService } from "./user.service";
+import { userService } from "./user.services";
 import catchAsync from "../../../Share/catchAsync";
 import sendResponse from "../../../Share/sendResponse";
 import httpStatus from "http-status";

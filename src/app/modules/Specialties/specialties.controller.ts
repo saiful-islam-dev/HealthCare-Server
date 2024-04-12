@@ -2,7 +2,7 @@ import httpStatus from "http-status";
 import catchAsync from "../../../Share/catchAsync";
 import sendResponse from "../../../Share/sendResponse";
 import { Request, Response } from "express";
-import { SpecialtiesService } from "./specialties.service";
+import { SpecialtiesService } from "./specialties.services";
 
 const inserIntoDB = catchAsync(async (req: Request, res: Response) => {
   console.log(req.body);
