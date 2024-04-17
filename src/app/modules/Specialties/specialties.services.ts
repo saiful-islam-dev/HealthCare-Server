@@ -31,6 +31,7 @@ const deleteFromDB = async (id: string): Promise<Specialties> => {
   });
   return result;
 };
+
 export const SpecialtiesService = {
   inserIntoDB,
   getAllFromDB,
