@@ -1,250 +1,279 @@
-# 🏥 PH Healthcare — Backend API
+# 🏥 HealthCare-Server — Backend API
 
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:0F172A,100:0D9488&height=180&section=header&text=PH%20Healthcare%20API&fontSize=40&fontColor=FFFFFF&animation=fadeIn&fontAlignY=42&desc=Secure%20%7C%20Scalable%20%7C%20Type-Safe%20Backend&descAlignY=68&descSize=16" alt="PH Healthcare Backend Banner" width="100%" />
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:0F172A,100:0D9488&height=180&section=header&text=HealthCare-Server&fontSize=38&fontColor=FFFFFF&animation=fadeIn&fontAlignY=42&desc=Healthcare%20Management%20Backend%20API&descAlignY=65&descSize=16" alt="HealthCare-Server Banner" width="100%" />
 </p>
 
 <p align="center">
-  A healthcare backend API built with Node.js, Express, TypeScript, Prisma ORM, and PostgreSQL.
+  A RESTful backend API for a healthcare management application, built with Node.js, Express, TypeScript, and MongoDB.
+</p>
+
+<p align="center">
+  <a href="https://github.com/saiful-islam-dev/HealthCare-Server">
+    <img src="https://img.shields.io/badge/GitHub-HealthCare--Server-181717?logo=github" alt="GitHub Repository" />
+  </a>
+  <img src="https://img.shields.io/badge/Node.js-Runtime-339933?logo=nodedotjs&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/Express-4-000000?logo=express&logoColor=white" alt="Express" />
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/MongoDB-Database-47A248?logo=mongodb&logoColor=white" alt="MongoDB" />
 </p>
 
 ---
 
-## 📑 Table of Contents
+## 📌 Table of Contents
 
-- [Introduction](#-introduction)
+- [Overview](#-overview)
 - [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Architecture](#-architecture)
+- [Technology Stack](#-technology-stack)
 - [Getting Started](#-getting-started)
 - [Environment Variables](#-environment-variables)
 - [Available Scripts](#-available-scripts)
 - [Project Structure](#-project-structure)
+- [API Integration](#-api-integration)
 - [Security](#-security)
-- [Deployment](#-deployment)
-- [Contact](#-contact)
+- [Build and Deployment](#-build-and-deployment)
+- [Future Improvements](#-future-improvements)
+- [Author](#-author)
 
-## 🚀 Introduction
+## 📖 Overview
 
-**PH Healthcare Backend** is the server-side application for the PH Healthcare frontend. It provides the foundation for API endpoints, database operations, authentication, validation, and healthcare-related application workflows.
+**HealthCare-Server** is the backend API for a healthcare management application. It provides the server-side foundation for handling HTTP requests, managing data in MongoDB, validating incoming requests, and integrating with external services.
 
-Built with Express and TypeScript, the backend uses Prisma ORM for database access and integrates tools for password hashing, token-based authentication, file uploads, and email delivery.
+The project uses Express for API development, TypeScript for type safety, and Mongoose for MongoDB object modeling. Additional dependencies support authentication, password hashing, file uploads, email delivery, and request validation.
 
 ## ✨ Features
 
-- 🌐 REST API development with Express.js
-- 🔷 Type-safe backend development with TypeScript
-- 🗄️ Database access using Prisma ORM
-- 🔐 JWT-based authentication support
-- 🔒 Password hashing with bcrypt
-- 🍪 Cookie handling with cookie-parser
-- ✅ Request validation using Zod
-- 📤 File upload handling with Multer
-- ☁️ Cloud media management with Cloudinary
-- 📧 Email delivery using Nodemailer
-- 🌍 Cross-Origin Resource Sharing (CORS) support
-- 📅 Date handling with date-fns
-- ⚡ Fast development workflow with ts-node-dev
+The installed dependencies support the following capabilities:
 
-*These features are based on your installed dependencies. Confirm the corresponding implementations in your source code.*
+- **REST API:** Build HTTP endpoints using Express.
+- **Database Integration:** Manage MongoDB documents with Mongoose.
+- **Authentication Support:** Implement JSON Web Token (JWT) authentication.
+- **Password Security:** Hash and compare passwords using bcrypt.
+- **Request Validation:** Validate input data using Zod.
+- **File Uploads:** Process multipart file uploads with Multer.
+- **Cloud Storage:** Integrate with Cloudinary for media storage.
+- **Email Integration:** Send emails using Nodemailer.
+- **Cookie Handling:** Parse cookies with cookie-parser.
+- **Cross-Origin Requests:** Configure CORS for frontend integration.
+- **Environment Configuration:** Manage configuration using dotenv.
+- **Code Quality:** Maintain code consistency with ESLint and Prettier.
 
-## 🧰 Tech Stack
+*The actual features and API endpoints depend on what has been implemented in the source code.*
+
+## 🛠️ Technology Stack
 
 | Technology | Purpose |
 |---|---|
 | Node.js | JavaScript runtime |
-| Express.js 4 | HTTP server and API routing |
+| Express.js 4 | Backend framework |
 | TypeScript 5 | Static typing |
-| Prisma ORM 5 | Database access and schema management |
-| PostgreSQL | Database, if configured in your Prisma datasource |
-| Zod | Request and data validation |
+| MongoDB | NoSQL database |
+| Mongoose 8 | MongoDB object modeling |
 | JSON Web Token | Token-based authentication |
 | bcrypt | Password hashing |
-| Multer | Multipart file uploads |
-| Cloudinary | Cloud-based media storage |
+| Zod | Request validation |
+| Multer | File upload handling |
+| Cloudinary | Media storage integration |
 | Nodemailer | Email delivery |
-| dotenv | Environment variable management |
-| cookie-parser | Cookie parsing |
-| CORS | Cross-origin request configuration |
-| date-fns | Date utilities |
-| http-status | HTTP status code constants |
+| CORS | Cross-origin resource sharing |
+| dotenv | Environment configuration |
+| ESLint | Code linting |
+| Prettier | Code formatting |
 
-## 🏗️ Architecture
-
-The backend can be organized into the following layers:
-
-- **Routes:** Define API endpoints.
-- **Controllers:** Handle HTTP requests and responses.
-- **Services:** Implement application business logic.
-- **Prisma:** Manage database queries and persistence.
-- **Middlewares:** Handle authentication, validation, and errors.
-- **Utilities:** Provide reusable helpers and shared functions.
-
-The exact architecture depends on your existing source code.
-
-## ⚙️ Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
-Install the following:
+Install the following tools:
 
 - [Node.js](https://nodejs.org/)
 - npm
-- [PostgreSQL](https://www.postgresql.org/), if used by your Prisma schema
 - [Git](https://git-scm.com/)
+- [MongoDB](https://www.mongodb.com/) or a MongoDB Atlas account
 
-### Installation
-
-**1. Clone the backend repository**
-
-```bash
-git clone YOUR_BACKEND_REPOSITORY_URL
-```
-
-**2. Navigate to the project directory**
+### 1. Clone the Repository
 
 ```bash
-cd healthcare-server
+git clone https://github.com/saiful-islam-dev/HealthCare-Server.git
 ```
 
-**3. Install dependencies**
+### 2. Navigate to the Project
+
+```bash
+cd HealthCare-Server
+```
+
+### 3. Install Dependencies
 
 ```bash
 npm install
 ```
 
-**4. Configure environment variables**
+### 4. Configure Environment Variables
 
-Create a `.env` file in the project root. For example:
+Create a `.env` file in the project root and configure the values required by your application.
 
-```env
-PORT=5000
-DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/healthcare_db"
-JWT_SECRET="replace_with_a_secure_random_secret"
-```
-
-Add other variables required by your implementation, such as Cloudinary credentials, email configuration, and frontend origins.
-
-**5. Generate the Prisma Client**
+### 5. Run the Development Server
 
 ```bash
-npx prisma generate
+npm run start:dev
 ```
 
-If your database schema has not yet been applied, use the appropriate Prisma migration command for your development environment.
-
-**6. Start the development server**
-
-```bash
-npm run dev
-```
-
-The server will start on the configured port if `src/server.ts` is set up correctly.
+The server's URL and port depend on the configuration in `src/server.ts` and your environment variables.
 
 ## 🔐 Environment Variables
 
-Common environment variables may include:
+The following is an example configuration. Adjust the names to match those used by your source code.
 
-| Variable | Purpose |
-|---|---|
-| `PORT` | Backend server port |
-| `DATABASE_URL` | Database connection string |
-| `JWT_SECRET` | Secret for signing JWTs |
-| `FRONTEND_URL` | Allowed frontend origin, if used |
-| `CLOUDINARY_CLOUD_NAME` | Cloudinary account name |
-| `CLOUDINARY_API_KEY` | Cloudinary API key |
-| `CLOUDINARY_API_SECRET` | Cloudinary API secret |
-| `EMAIL_USER` | Email account or SMTP username |
-| `EMAIL_PASS` | Email or SMTP credential |
+```env
+NODE_ENV=development
+PORT=5000
 
-Use the exact variable names expected by your source code. Never commit real credentials or `.env` files to GitHub.
+DATABASE_URL=mongodb://127.0.0.1:27017/healthcare
+
+JWT_SECRET=replace_with_a_strong_random_secret
+JWT_EXPIRES_IN=7d
+
+CLIENT_URL=http://localhost:5173
+
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+
+SMTP_HOST=your_smtp_host
+SMTP_PORT=587
+SMTP_USER=your_email
+SMTP_PASS=your_email_password
+```
+
+**Security note:** These variable names are examples, not confirmed application settings. Match them to your code and never commit your `.env` file or expose secrets in GitHub.
 
 ## 📜 Available Scripts
 
 | Command | Description |
 |---|---|
-| `npm run dev` | Starts the development server with automatic restarts |
-| `npm test` | Currently exits with a placeholder error because tests are not configured |
+| `npm run start:dev` | Starts the development server with automatic restarts |
+| `npm run build` | Compiles TypeScript |
+| `npm run start:prod` | Starts the compiled server |
+| `npm run lint` | Checks TypeScript files in `src` |
+| `npm run lint:fix` | Automatically fixes supported lint issues |
+| `npm run prettier` | Formats JavaScript, TypeScript, and JSON files under `src` |
+| `npm run prettier:fix` | Formats files under `src` |
+| `npm test` | Placeholder script; automated tests are not configured |
 
-### Development
+### Build for Production
+
+Compile the application:
 
 ```bash
-npm run dev
+npm run build
 ```
 
-Your current development command runs:
+Start the compiled server:
 
 ```bash
-ts-node-dev --respawn --transpile-only src/server.ts
+npm run start:prod
 ```
 
-For production, consider adding a TypeScript build script and a production start command.
+The production script expects the compiled entry point to be `dist/server.js`. Verify that your `tsconfig.json` generates that path.
 
-## 📁 Project Structure
+## 📂 Project Structure
 
-A typical Express and Prisma backend may follow this structure:
+A suggested project structure:
 
 ```text
-healthcare-server/
-├── prisma/
-│   └── schema.prisma
+HealthCare-Server/
 ├── src/
-│   ├── app.ts
-│   ├── server.ts
-│   ├── routes/
-│   ├── controllers/
-│   ├── services/
-│   ├── middlewares/
-│   ├── utils/
-│   └── config/
-├── .env
+│   ├── config/              # Database and service configuration
+│   ├── controllers/         # Request handlers
+│   ├── errors/              # Error handling utilities
+│   ├── interfaces/          # TypeScript interfaces
+│   ├── middlewares/         # Authentication and validation
+│   ├── models/              # Mongoose models
+│   ├── routes/              # API routes
+│   ├── services/             # Business logic and integrations
+│   ├── utils/               # Shared utilities
+│   └── server.ts            # Server entry point
+├── dist/                    # Compiled JavaScript
+├── .env                     # Local environment variables
+├── .gitignore
 ├── package.json
 ├── tsconfig.json
 └── README.md
 ```
 
-*Adjust the structure to match your actual repository.*
+*Update this example to reflect the actual structure of your repository.*
 
-## 🔒 Security
+## 🔗 API Integration
 
-- Hash passwords using bcrypt before storing them.
-- Validate incoming requests with Zod.
-- Protect private endpoints with authentication middleware.
-- Configure CORS for trusted frontend origins.
-- Store secrets in environment variables.
+HealthCare-Server is designed to provide backend services for a healthcare frontend.
+
+For local development, your frontend might connect to an API URL such as:
+
+```text
+http://localhost:5000/api
+```
+
+The actual URL and API prefix depend on your Express configuration.
+
+Recommended practices:
+
+- Organize routes by resource.
+- Validate request bodies, parameters, and query strings.
+- Use consistent HTTP status codes and error responses.
+- Protect private routes with authentication and authorization middleware.
+- Separate business logic from route definitions.
+- Configure CORS to allow trusted frontend origins.
+
+## 🛡️ Security
+
+- Hash passwords with bcrypt.
+- Keep JWT secrets and third-party credentials private.
+- Validate incoming request data.
+- Restrict CORS to trusted origins.
 - Validate uploaded files and enforce size limits.
-- Avoid logging sensitive healthcare or authentication data.
+- Apply authentication and authorization to protected endpoints.
+- Use HTTPS in production.
+- Avoid exposing sensitive data in API responses.
 
-## ☁️ Deployment
+## 🌐 Build and Deployment
 
-You can deploy the backend using a Node.js-compatible hosting platform, such as:
-
-- [Render](https://render.com/)
-- [Railway](https://railway.com/)
-- [AWS](https://aws.amazon.com/)
+HealthCare-Server can be deployed to a Node.js-compatible hosting platform or server.
 
 Before deployment:
 
 1. Configure production environment variables.
-2. Provision and connect the production database.
-3. Generate the Prisma Client.
-4. Configure database migrations.
-5. Set the frontend's allowed origin.
-6. Add production build and start scripts.
-7. Test authentication, API endpoints, and error handling.
+2. Set up a production MongoDB database.
+3. Run `npm run build`.
+4. Verify that the output entry point is `dist/server.js`.
+5. Start the server using `npm run start:prod`.
+6. Configure the frontend to use the deployed API URL.
+7. Enable HTTPS and review security settings.
 
-## 📬 Contact
+Never commit database credentials, JWT secrets, or Cloudinary and SMTP credentials.
 
-**Saiful Islam** — Web Developer
+## 🔮 Future Improvements
+
+- Add automated unit and integration tests.
+- Document API endpoints using Swagger or OpenAPI.
+- Implement centralized error handling.
+- Add pagination, filtering, and search.
+- Implement role-based authorization where required.
+- Add rate limiting and security headers.
+- Introduce structured logging and monitoring.
+- Configure CI/CD for automated testing and deployment.
+
+## 👨‍💻 Author
+
+**Saiful Islam**
 
 - GitHub: [saiful-islam-dev](https://github.com/saiful-islam-dev)
+- Project Repository: [HealthCare-Server](https://github.com/saiful-islam-dev/HealthCare-Server)
+- Portfolio: Add your portfolio URL
+- Email: Add your preferred contact email
 
 ---
 
 <p align="center">
-  ⭐ If you find this project interesting, consider giving the repository a star!
-</p>
-
-<p align="center">
-  Built with ❤️ by Saiful Islam
+  Built with ❤️ using Node.js, Express, TypeScript, and MongoDB.
 </p>
